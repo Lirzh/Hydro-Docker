@@ -1,35 +1,28 @@
-FROM node:22
+FROM node:22-alpine
 
-RUN apt-get -qq update && \
-    apt-get install -y \
+RUN apk add --no-cache \
     gcc \
     python3 \
     pypy3 \
     g++ \
     fpc \
     fp-compiler \
-    openjdk-17-jdk-headless \
-    rustc \
+    openjdk17-jdk-headless \
+    rust \
     ghc \
-    cabal-install \
-    libjavascriptcoregtk-4.0-bin \
-    golang \
+    cabal \
+    gjs \
+    go \
     ruby \
     mono-runtime \
     mono-mcs \
     kotlin \
-    php \
-    php-cli \
+    php83 \
+    php83-cli \
     nodejs \
     bash
 
-RUN wget https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz
-RUN tar -xf Python-2.7.18.tgz
-RUN cd /Python-2.7.18 && ./configure --with-pydebug
-RUN cd /Python-2.7.18 && make -s -j16
-RUN export PATH=$PATH:/Python-2.7.18/
-RUN ln -s /Python-2.7.18/python /usr/bin/python
-RUN ln -s /Python-2.7.18/python /usr/bin/python2
+RUN apk add --no-cache python2
 
 ADD ./entrypoint.sh /root/entrypoint.sh
 ADD ./judge.yaml /root/judge.yaml
