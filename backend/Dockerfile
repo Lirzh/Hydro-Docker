@@ -1,4 +1,4 @@
-FROM node:22-alpine
+FROM --platform=$TARGETPLATFORM node:22-alpine
 ADD ./entrypoint.sh /root/entrypoint.sh
 RUN yarn global add pm2 hydrooj @hydrooj/ui-default
 RUN chmod +x /root/entrypoint.sh && \

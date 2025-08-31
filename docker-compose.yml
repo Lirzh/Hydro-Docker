@@ -11,7 +11,11 @@ services:
       - ./data/mongo:/data/db
 
   oj-backend:
-    build: ./backend
+    build:
+      context: ./backend
+      platforms:
+        - linux/amd64
+        - linux/arm64
     container_name: oj-backend
     restart: always
     depends_on:
